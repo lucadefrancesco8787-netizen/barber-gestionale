@@ -13,5 +13,8 @@ Tecnologia: HTML/JS semplice (nessuna build) + Supabase (login, database) + Netl
 1. Copia `.env.example` in `.env` e metti le chiavi Supabase.
 2. `npx serve .` e apri `http://localhost:3000/?prova` (dati finti, niente Supabase).
 
+## Test del database
+`npm install` e poi `npm test`: provano le regole (prenotazioni, annullamenti, chi vede cosa) su un database locale.
+
 ## Da un altro computer
 `git clone <url del repository>` e poi segui "Avvio in locale".
