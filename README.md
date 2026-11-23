@@ -10,8 +10,9 @@ Gestionale per negozi di barbiere: sito + app installabile (PWA).
 Tecnologia: HTML/JS semplice (nessuna build) + Supabase (login, database) + Netlify (hosting). Costo zero.
 
 ## Avvio in locale
-1. Copia `.env.example` in `.env` e metti le chiavi Supabase.
-2. `npx serve .` e apri `http://localhost:3000/?prova` (dati finti, niente Supabase).
+1. `python -m http.server 8790` nella cartella del progetto.
+2. Apri `http://localhost:8790/?prova` (dati finti salvati nel browser, niente Supabase).
+3. Per usare il database vero metti URL e chiave pubblica di Supabase in `js/config.js`.
 
 ## Test del database
 `npm install` e poi `npm test`: provano le regole (prenotazioni, annullamenti, chi vede cosa) su un database locale.

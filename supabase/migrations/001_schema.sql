@@ -134,8 +134,9 @@ $$;
 create function handle_new_user() returns trigger language plpgsql security definer set search_path = public
 as $$
 begin
-  insert into profiles (id, full_name)
-  values (new.id, coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', new.email));
+  insert into profiles (id, full_name, phone)
+  values (new.id, coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', new.email),
+          nullif(trim(new.raw_user_meta_data->>'phone'), ''));
   return new;
 end $$;
 
@@ -290,7 +291,7 @@ begin
   select * into p from profiles where id = auth.uid();
   insert into customers (org_id, profile_id, full_name, phone, email)
   values (v_org, auth.uid(), coalesce(p.full_name, 'Cliente'), p.phone, (select email from auth.users where id = auth.uid()))
-  on conflict (org_id, profile_id) do update set full_name = customers.full_name
+  on conflict (org_id, profile_id) do update set phone = coalesce(excluded.phone, customers.phone)
   returning id into v_cust;
   return insert_appointment(sv, v_cust, p_start, 'app');
 end $$;
